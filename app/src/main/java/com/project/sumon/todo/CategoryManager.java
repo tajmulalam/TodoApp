@@ -53,7 +53,7 @@ public class CategoryManager {
     public ArrayList<TodoCategory> getAllCategories() {
         this.open();
         ArrayList<TodoCategory> todoCategoryList = new ArrayList<>();
-        Cursor cursor = database.query(DBHelper.TABLE_CATEGORY, null, null, null, null, null, DBHelper.KEY_CATEGORY_ID + " DESC", null);
+        Cursor cursor = database.query(DBHelper.TABLE_CATEGORY, null, null, null, null, null,null, null);
         cursor.moveToFirst();
         if (cursor != null && cursor.getCount() > 0) {
             for (int i = 0; i < cursor.getCount(); i++) {
@@ -72,23 +72,18 @@ public class CategoryManager {
     public TodoCategory getTodoCategoryByid(int id) {
         this.open();
         Cursor cursor = database.query(DBHelper.TABLE_CATEGORY, new String[]{DBHelper.KEY_CATEGORY_ID, DBHelper.KEY_CATEGORY_NAME}, DBHelper.KEY_CATEGORY_ID + " = " + id, null, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
 
-        cursor.moveToFirst();
-        int categoryID = cursor.getInt(cursor.getColumnIndex(DBHelper.KEY_CATEGORY_ID));
-        String categoryName = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_CATEGORY_NAME));
-        todoCategory = new TodoCategory(categoryID, categoryName);
+            int categoryID = cursor.getInt(cursor.getColumnIndex(DBHelper.KEY_CATEGORY_ID));
+            String categoryName = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_CATEGORY_NAME));
+            todoCategory = new TodoCategory(categoryID, categoryName);
+        }
         this.close();
         return todoCategory;
     }
 
     public boolean deleteCategory(int categoryId) {
         this.open();
-//        ArrayList<Todo> allCategoryTodos = todoManager.getTodosByCategoryId(categoryId);
-//
-//        for (Todo todo : allCategoryTodos) {
-//            todoManager.deleteTodo(todo.getTodoId());
-//        }
-
         int deleted = database.delete(DBHelper.TABLE_CATEGORY, DBHelper.KEY_CATEGORY_ID + " = " + categoryId, null);
         this.close();
         if (deleted > 0) {
@@ -96,6 +91,17 @@ public class CategoryManager {
 
         } else return false;
 
+    }
+
+    public boolean updateCategory(int id, TodoCategory todoCategory) {
+        this.open();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBHelper.KEY_CATEGORY_NAME, todoCategory.getCategoryName());
+        int updated = database.update(DBHelper.TABLE_CATEGORY, contentValues, DBHelper.KEY_CATEGORY_ID + " = " + id, null);
+        this.close();
+        if (updated > 0) {
+            return true;
+        } else return false;
     }
 
 

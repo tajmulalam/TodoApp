@@ -10,6 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class TodoDetailsActivity extends AppCompatActivity {
     TodoManager todoManager;
     Todo todo;
@@ -47,7 +51,7 @@ public class TodoDetailsActivity extends AppCompatActivity {
             statusImageV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    boolean isStatusChanged = todoManager.updateStatus(todo.getTodoId(), 1);
+                    boolean isStatusChanged = todoManager.updateStatus(todo.getTodoId(), 1,getDateTime());
                     if (isStatusChanged) {
                         Toast.makeText(getApplicationContext(), "DONE!", Toast.LENGTH_LONG).show();
                         Intent refresh = new Intent(TodoDetailsActivity.this, TodoDetailsActivity.class);
@@ -61,7 +65,7 @@ public class TodoDetailsActivity extends AppCompatActivity {
             statusImageV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    boolean isStatusChanged = todoManager.updateStatus(todo.getTodoId(), 0);
+                    boolean isStatusChanged = todoManager.updateStatus(todo.getTodoId(), 0,getDateTime());
                     if (isStatusChanged) {
                         Toast.makeText(getApplicationContext(), "PENDING!", Toast.LENGTH_LONG).show();
                         Intent refresh = new Intent(TodoDetailsActivity.this, TodoDetailsActivity.class);
@@ -72,8 +76,8 @@ public class TodoDetailsActivity extends AppCompatActivity {
             });
 
         }
-        dateTV.setText("Create at: " + todo.getCreated_at());
-        todoTitleTV.setText("Title: " + todo.getTitle());
+        dateTV.setText(todo.getCreated_at());
+        todoTitleTV.setText(todo.getTitle());
         setTitle(todo.getCreated_at());
         if (todo.getTodo_type() == 1) {
             todoTypeImageV.setImageResource(R.mipmap.ic_normal);
@@ -84,7 +88,7 @@ public class TodoDetailsActivity extends AppCompatActivity {
             todoTypeImageV.setImageResource(R.mipmap.ic_vurgent);
 
         }
-        todoDescriptionTV.setText("Description: " + todo.getDescription());
+        todoDescriptionTV.setText(todo.getDescription());
 
 
     }
@@ -92,7 +96,9 @@ public class TodoDetailsActivity extends AppCompatActivity {
 
     public void editTodo(View view)
     {
-
+        Intent editTodoIntent=new Intent(TodoDetailsActivity.this,CreateTodoActivity.class);
+        editTodoIntent.putExtra("todoId",todoId);
+        startActivity(editTodoIntent);
     }
     public void deleteTodo(View view)
     {
@@ -106,5 +112,13 @@ public class TodoDetailsActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"Failed!",Toast.LENGTH_LONG).show();
 
         }
+    }
+
+
+    private String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 }

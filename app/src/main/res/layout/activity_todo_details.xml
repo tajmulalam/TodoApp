@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="15dp"
     tools:context="com.project.sumon.todo.TodoDetailsActivity">
 
     <LinearLayout
@@ -13,116 +12,130 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal">
-
+            android:layout_height="150dp"
+            android:background="@color/colorAccent"
+            android:orientation="vertical">
             <ImageView
-                android:id="@+id/statusImageV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:src="@mipmap/ic_done" />
+                android:layout_marginTop="25dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@mipmap/ic_tododetails"
+                android:layout_gravity="center_horizontal"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/todoTitleTV"
+            android:elevation="30dp"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="Title: "
-                android:textSize="20sp" />
+                android:gravity="left"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_weight="1"
+                    android:id="@+id/todoTitleTV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Title: "
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+                <ImageView
 
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/dateTV"
+                    android:id="@+id/statusImageV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:src="@mipmap/ic_done" />
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="Date: "
-                android:textSize="20sp" />
+                android:orientation="horizontal">
 
-        </LinearLayout>
+                <TextView
+                    android:textColor="#9E9E9E"
+                    android:id="@+id/dateTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Date: "
+                    android:textSize="15sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
 
-            <TextView
+            </LinearLayout>
 
-                android:id="@+id/todoTypeTV"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="Todo Type: "
-                android:textSize="20sp" />
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
-            <ImageView
+                <TextView
 
-                android:id="@+id/todoTypeImageV"
-                android:layout_width="wrap_content"
+                    android:id="@+id/todoTypeTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Priority: "
+                    android:textSize="20sp" />
+
+                <ImageView
+
+                    android:id="@+id/todoTypeImageV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/ic_normal" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_normal" />
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
 
-        </LinearLayout>
+                <TextView
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
+                    android:id="@+id/todoDescriptionTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Description: "
+                    android:textSize="20sp" />
 
-            <TextView
 
-                android:id="@+id/todoDescriptionTV"
-                android:layout_width="wrap_content"
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="Description: "
-                android:textSize="20sp" />
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
+                <ImageButton
+                    android:id="@+id/editTodoImageBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#0000"
+                    android:onClick="editTodo"
+                    android:src="@mipmap/ic_edit" />
 
-        </LinearLayout>
+                <ImageButton
+                    android:id="@+id/deleteTodoImageBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:background="#0000"
+                    android:onClick="deleteTodo"
+                    android:src="@mipmap/ic_delete" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/editTodoImageBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#0000"
-                android:onClick="editTodo"
-                android:src="@mipmap/ic_edit" />
-
-            <ImageButton
-                android:onClick="deleteTodo"
-                android:id="@+id/deleteTodoImageBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:background="#0000"
-                android:src="@mipmap/ic_delete" />
-
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

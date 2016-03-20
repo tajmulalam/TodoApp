@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class TodoListActivity extends AppCompatActivity {
     int todoId;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    TextView infoTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,24 +33,31 @@ public class TodoListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_back);
         todoListView = (ListView) findViewById(R.id.todoListView);
+        infoTV= (TextView) findViewById(R.id.infoTV);
         sharedPreferences = getSharedPreferences("todoInfo", MODE_PRIVATE);
         editor = sharedPreferences.edit();
         CategoryId = sharedPreferences.getInt("categoryId", 0);
         todoManager = new TodoManager(this);
         todoList = todoManager.getTodosByCategoryId(CategoryId);
-        adapter = new AdapterForTodoList(this, todoList);
-        todoListView.setAdapter(adapter);
-        todoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                todoId = todoList.get(position).getTodoId();
-                Intent todoDetailsIntent = new Intent(TodoListActivity.this, TodoDetailsActivity.class);
-                editor.putInt("todoId", todoId);
-                editor.commit();
-                startActivity(todoDetailsIntent);
-//                Toast.makeText(getApplicationContext(), Integer.toString(todoId), Toast.LENGTH_LONG).show();
-            }
-        });
+        if (todoList.size()>0) {
+            infoTV.setVisibility(View.GONE);
+            adapter = new AdapterForTodoList(this, todoList);
+            todoListView.setAdapter(adapter);
+            todoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    todoId = todoList.get(position).getTodoId();
+                    Intent todoDetailsIntent = new Intent(TodoListActivity.this, TodoDetailsActivity.class);
+                    editor.putInt("todoId", todoId);
+                    editor.commit();
+                    startActivity(todoDetailsIntent);
+
+                }
+            });
+        }else {
+            todoListView.setVisibility(View.GONE);
+            infoTV.setText("YOU DON'T CREATE ANY TODO YET");
+        }
 
     }
 

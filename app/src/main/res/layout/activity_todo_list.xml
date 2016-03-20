@@ -5,8 +5,14 @@
     android:layout_margin="5dp"
     tools:context="sumon.com.todo.TodoListActivity"
     android:orientation="vertical">
-
-
+    <TextView
+        android:layout_margin="50dp"
+        android:gravity="center"
+        android:id="@+id/infoTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" YOU DON'T CREATE ANY TASK YET"
+        android:textSize="40sp"/>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

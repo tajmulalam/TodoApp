@@ -5,11 +5,19 @@
     android:layout_height="match_parent"
     tools:context=".CategoryListActivity"
     android:layout_margin="5dp">
-
+<TextView
+    android:layout_margin="50dp"
+    android:gravity="center"
+    android:id="@+id/infoTV"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="NO DATA AVILABLE"
+    android:textSize="40sp"/>
     <ListView
+        android:layout_below="@id/infoTV"
         android:id="@+id/categoryListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@android:color/darker_gray"
-        android:dividerHeight="1dp"/>
+        android:dividerHeight=".20dp"/>
 </RelativeLayout>

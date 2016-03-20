@@ -29,6 +29,13 @@ public class Todo {
         this.status=status;
     }
 
+    public Todo(int todo_type, String title, String description, String created_at) {
+        this.todo_type = todo_type;
+        this.title = title;
+        this.description = description;
+        this.created_at = created_at;
+    }
+
     public int getCategoryId() {
         return categoryId;
     }

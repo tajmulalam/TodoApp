@@ -3,7 +3,7 @@
     <string name="category">Category</string>
     <string name="addTodo">Add Todo</string>
     <string name="todoActivity">Todo List</string>
-    <string name="createCategoryActivity">Create a List</string>
+    <string name="createCategoryActivity">Create a Category</string>
     <string name="createTodo">New Todo</string>
-    <string name="category_name">Listing Name</string>
+    <string name="category_name">Category Name</string>
 </resources>
